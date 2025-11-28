@@ -1,7 +1,7 @@
 ---
 # Variable setup.
 - name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
+  include_vars: "{{ ansible_facts.os_family }}.yml"
 
 - name: Define nginx_user.
   set_fact:
@@ -10,25 +10,25 @@
 
 # Setup/install tasks.
 - include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat' or ansible_os_family == 'Rocky' or ansible_os_family == 'AlmaLinux'
+  when: ansible_facts.os_family == 'RedHat' or ansible_facts.os_family == 'Rocky' or ansible_facts.os_family == 'AlmaLinux'
 
 - include_tasks: setup-Ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_facts.distribution == 'Ubuntu'
 
 - include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 
 - include_tasks: setup-FreeBSD.yml
-  when: ansible_os_family == 'FreeBSD'
+  when: ansible_facts.os_family == 'FreeBSD'
 
 - include_tasks: setup-OpenBSD.yml
-  when: ansible_os_family == 'OpenBSD'
+  when: ansible_facts.os_family == 'OpenBSD'
 
 - include_tasks: setup-Archlinux.yml
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts.os_family == 'Archlinux'
 
 - include_tasks: setup-Suse.yml
-  when: ansible_os_family == 'Suse'
+  when: ansible_facts.os_family == 'Suse'
 
 # Vhost configuration.
 - import_tasks: vhosts.yml
